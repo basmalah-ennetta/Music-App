@@ -2,7 +2,8 @@
 
 // --- Spotify App Config ---
 const clientId = "a85a513571c74a8c8a46647f21eba43a";
-const redirectUri = "https://music-app-dj-bass.vercel.app/";
+const redirectUri = window.location.origin + "/";
+;
 const scopes = [
   "streaming",
   "user-read-playback-state",
