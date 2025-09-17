@@ -71,30 +71,22 @@ async function getAccessToken(code) {
     return;
   }
 
-  const body = new URLSearchParams({
+  const body = {
     client_id: clientId,
     grant_type: "authorization_code",
     code,
     redirect_uri: redirectUri,
     code_verifier: codeVerifier,
-  });
-
-  console.log("Requesting Spotify token with body:", body.toString());
+  };
 
   try {
-    const response = await fetch("https://accounts.spotify.com/api/token", {
+    const response = await fetch("/api/getToken", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
+      body: new URLSearchParams(body),
     });
 
-    const text = await response.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      data = text;
-    }
+    const data = await response.json();
 
     if (!response.ok) {
       console.error("Spotify token request failed:", response.status, data);
@@ -108,6 +100,7 @@ async function getAccessToken(code) {
     throw err;
   }
 }
+
 
 // --- DOM Elements ---
 const playBtn = document.getElementById("play-btn");
