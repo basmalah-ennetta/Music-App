@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bass' Drums</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app-container">
+        <header id="header">
+            <h1 id="app-title">Bass' Drums</h1>
+            <input type="text" id="search-bar" placeholder="Search for songs, artists...">
+        </header>
+
+        <main>
+            <section id="player-section">
+                <img id="album-art" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/50/c2/cc/50c2cc95-3658-9417-0d4b-831abde44ba1/24UM1IM28978.rgb.jpg/1200x1200bf-60.jpg" alt="Album Art">
+                <div id="song-info">
+                    <h2 id="song-title">peekaboo (feat.azchike)</h2>
+                    <p id="artist-name">Kendrick Lamar,AZ Chike</p>
+                </div>
+                <div id="progress-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <div id="time-info">
+                    <span id="current-time">1:23</span>
+                    <span id="duration">2:35</span>
+                </div>
+                <div id="controls">
+                    <button id="prev-btn" class="control-btn">⏮</button>
+                    <button id="play-btn" class="control-btn">▶</button>
+                    <button id="next-btn" class="control-btn">⏭</button>
+                </div>
+            </section>
+
+            <section id="top-tracks-section">
+                <h2 id="top-tracks-title">Top Tracks</h2>
+                <div id="tracks-container">
+                    <div class="track-item" id="track-1">
+                        <img src="https://images.genius.com/2f0f592d80b598aeb2d31073f18c52ed.1000x1000x1.png" alt="Track 1" class="track-cover">
+                        <p class="track-name">1999</p>
+                        <p class="track-artist">MARK</p>
+                    </div>
+                    <div class="track-item" id="track-2">
+                        <img src="https://i.ytimg.com/vi/ZjBZ8MUnB0E/maxresdefault.jpg" alt="Track 2" class="track-cover">
+                        <p class="track-name">Training Season</p>
+                        <p class="track-artist">Dua Lipa</p>
+                    </div>
+                    <div class="track-item" id="track-3">
+                        <img src="https://filepicker-images.genius.com/dcghrt9gzk4" alt="Track 3" class="track-cover">
+                        <p class="track-name">FIELD TRIP</p>
+                        <p class="track-artist">¥$,Kanye West,TY Dollar $ign</p>
+                    </div>
+                    <div class="track-item" id="track-4">
+                        <img src="https://images.genius.com/c129d5d114d2cd2303d72e073746a5db.1000x1000x1.jpg" alt="Track 4" class="track-cover">
+                        <p class="track-name">Money Trees</p>
+                        <p class="track-artist">Kendrick Lamar,Jay Rock</p>
+                    </div>
+                    <div class="track-item" id="track-5">
+                        <img src="https://tse4.mm.bing.net/th/id/OIP.GDoozq1N-SIfH4J18FviPwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Track 5" class="track-cover">
+                        <p class="track-name">Bounce Back</p>
+                        <p class="track-artist">Stray Kids</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
