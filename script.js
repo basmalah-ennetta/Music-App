@@ -49,9 +49,8 @@ function getItem(key) {
 // --- Auth Flow ---
 async function redirectToAuthCodeFlow() {
   const codeVerifier = generateCodeVerifier(128);
+  setItem("code_verifier", codeVerifier); // store first
   const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-  setItem("code_verifier", codeVerifier);
 
   const url = new URL("https://accounts.spotify.com/authorize");
   url.searchParams.append("client_id", clientId);
@@ -66,6 +65,10 @@ async function redirectToAuthCodeFlow() {
 
 async function getAccessToken(code) {
   const codeVerifier = getItem("code_verifier");
+  if (!codeVerifier) {
+    console.error("No code_verifier found in localStorage!");
+    return;
+  }
 
   const body = new URLSearchParams({
     client_id: clientId,
@@ -104,8 +107,6 @@ async function getAccessToken(code) {
     throw err;
   }
 }
-
-
 
 // --- DOM Elements ---
 const playBtn = document.getElementById("play-btn");
