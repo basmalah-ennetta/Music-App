@@ -1,20 +1,20 @@
 /** @format */
 
 // --- Spotify App Config ---
-const clientId = "a85a513571c74a8c8a46647f21eba43a"; 
-const redirectUri = "https://music-app-dj-bass.vercel.app/"; 
+const clientId = "a85a513571c74a8c8a46647f21eba43a";
+const redirectUri = "https://music-app-dj-bass.vercel.app/";
 const scopes = [
   "streaming",
   "user-read-playback-state",
   "user-modify-playback-state",
   "user-read-currently-playing",
-  "offline_access"
 ];
 
 // --- PKCE Functions ---
 function generateCodeVerifier(length) {
   let text = "";
-  let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+  let possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
   for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
@@ -45,7 +45,6 @@ function getItem(key) {
     return null;
   }
 }
-
 
 // --- Auth Flow ---
 async function redirectToAuthCodeFlow() {
@@ -243,9 +242,8 @@ searchBar.addEventListener("keypress", async (e) => {
     if (!code) {
       await redirectToAuthCodeFlow();
     } else {
-      const { access_token, refresh_token } = await getAccessToken(code);
+      const { access_token } = await getAccessToken(code);
       setItem("access_token", access_token);
-      setItem("refresh_token", refresh_token);
       token = access_token;
       window.history.replaceState({}, document.title, "/"); // Clean URL
     }
