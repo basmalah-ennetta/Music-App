@@ -75,14 +75,35 @@ async function getAccessToken(code) {
     code_verifier: codeVerifier,
   });
 
-  const response = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body,
-  });
+  try {
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
 
-  return await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch (jsonErr) {
+      const text = await response.text();
+      console.error("Failed to parse JSON:", text);
+      throw new Error("Failed to parse JSON from Spotify token response");
+    }
+
+    if (!response.ok) {
+      console.error("Spotify token request failed:", response.status, data);
+      throw new Error(`Spotify token request failed: ${response.status}`);
+    }
+
+    console.log("Spotify token response:", data);
+    return data;
+  } catch (err) {
+    console.error("Error fetching Spotify access token:", err);
+    throw err;
+  }
 }
+
 
 // --- DOM Elements ---
 const playBtn = document.getElementById("play-btn");
