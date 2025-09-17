@@ -75,6 +75,8 @@ async function getAccessToken(code) {
     code_verifier: codeVerifier,
   });
 
+  console.log("Requesting Spotify token with body:", body.toString());
+
   try {
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -82,13 +84,12 @@ async function getAccessToken(code) {
       body,
     });
 
+    const text = await response.text();
     let data;
     try {
-      data = await response.json();
-    } catch (jsonErr) {
-      const text = await response.text();
-      console.error("Failed to parse JSON:", text);
-      throw new Error("Failed to parse JSON from Spotify token response");
+      data = JSON.parse(text);
+    } catch {
+      data = text;
     }
 
     if (!response.ok) {
@@ -103,6 +104,7 @@ async function getAccessToken(code) {
     throw err;
   }
 }
+
 
 
 // --- DOM Elements ---
