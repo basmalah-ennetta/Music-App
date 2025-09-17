@@ -67,6 +67,7 @@ async function getAccessToken(code) {
   const codeVerifier = getItem("code_verifier");
   if (!codeVerifier) {
     console.error("No code_verifier found in localStorage!");
+    await redirectToAuthCodeFlow();
     return;
   }
 
@@ -260,18 +261,17 @@ searchBar.addEventListener("keypress", async (e) => {
 (async () => {
   const params = new URLSearchParams(window.location.search);
   let code = params.get("code");
-  token = getItem("access_token");
+  const tokenResponse = await getAccessToken(code);
 
-  if (!token) {
-    if (!code) {
-      await redirectToAuthCodeFlow();
-    } else {
-      const { access_token } = await getAccessToken(code);
-      setItem("access_token", access_token);
-      token = access_token;
-      window.history.replaceState({}, document.title, "/"); // Clean URL
-    }
+  if (!tokenResponse?.access_token) {
+    console.error("Failed to get access token:", tokenResponse);
+    return;
   }
+
+  const { access_token } = tokenResponse;
+  setItem("access_token", access_token);
+  token = access_token;
+  window.history.replaceState({}, document.title, "/"); // Clean URL
 
   console.log("Access Token:", token);
 })();
