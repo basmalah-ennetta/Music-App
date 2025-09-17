@@ -8,6 +8,7 @@ const scopes = [
   "user-read-playback-state",
   "user-modify-playback-state",
   "user-read-currently-playing",
+  "offline_access"
 ];
 
 // --- PKCE Functions ---
@@ -31,12 +32,20 @@ async function generateCodeChallenge(codeVerifier) {
 }
 
 function setItem(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
+  if (value !== undefined && value !== null) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 }
+
 function getItem(key) {
   const v = localStorage.getItem(key);
-  return v ? JSON.parse(v) : null;
+  try {
+    return v ? JSON.parse(v) : null;
+  } catch (e) {
+    return null;
+  }
 }
+
 
 // --- Auth Flow ---
 async function redirectToAuthCodeFlow() {
