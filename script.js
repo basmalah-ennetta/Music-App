@@ -271,7 +271,9 @@ searchBar.addEventListener("keypress", async (e) => {
   const { access_token } = tokenResponse;
   setItem("access_token", access_token);
   token = access_token;
-  window.history.replaceState({}, document.title, "/"); // Clean URL
+  window.history.replaceState({}, document.title, "/");
+  console.log("Current URL:", window.location.href);
+ // Clean URL
 
   console.log("Access Token:", token);
 })();
